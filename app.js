@@ -18,6 +18,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
