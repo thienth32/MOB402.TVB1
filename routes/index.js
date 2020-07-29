@@ -1,6 +1,7 @@
 var express = require('express');
 var Brand = require('../models/Brand');
 var Car = require('../models/Car');
+const { response } = require('express');
 var router = express.Router();
 
 /* GET home page. */
@@ -47,6 +48,30 @@ router.get('/brands/remove/:brandId', async function(req, res){
       })
   res.redirect('/brands');
 });
+
+router.get('/brands/update/:brandId', async function(req, res){
+  let brandId = req.params.brandId;
+  let brand = await Brand.findById(brandId)
+                        .catch((err) => {
+                          res.send("Không tìm thấy thông tin hãng ô tô");
+                        });
+  res.render('brands/update', {brand});
+});
+
+router.post('/brands/save-update/:brandId', async function(req, res){
+  let brandId = req.params.brandId;
+  let {name, logo} = req.body;
+
+  let brand = await Brand.findById(brandId)
+                        .catch((err) => {
+                          res.send("Không tìm thấy thông tin hãng ô tô");
+                        });
+  brand.overwrite({
+    name, logo
+  });
+  await brand.save();
+  res.redirect('/brands');
+})
 
 router.get('/brands/:brandId', async function(req, res){
   let brandId = req.params.brandId;
