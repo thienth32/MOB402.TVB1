@@ -5,7 +5,8 @@ const { response } = require('express');
 var router = express.Router();
 
 router.get('/', async function(req, res){
-    let cars = await Car.find({});
+    let cars = await Car.find({})
+                        .populate('brand_id');
     let keyword = "";
     console.log(cars);
 

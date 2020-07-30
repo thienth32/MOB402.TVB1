@@ -55,6 +55,7 @@
             <table class="table table-stripped">
                 <thead>
                     <th>Tên ô tô</th>
+                    <th>Tên hãng</th>
                     <th width="100">Hình ảnh</th>
                     <th width="100">Giá xe</th>
                     <th>
@@ -65,6 +66,7 @@
                     <% for(let i = 0; i < cars.length; i++){ %>
                         <tr>
                             <td><%= cars[i].name %></td>
+                            <td><%= cars[i].brand_id.name %></td>
                             <td>
                                 <img src="<%= cars[i].image %>" class="img-thumbnail">
                             </td>
