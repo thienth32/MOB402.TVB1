@@ -25,8 +25,9 @@ router.get('/remove/:carId', async function(req, res){
     res.redirect('/cars');
 });
 
-router.get('/create', function(req, res){
-    res.send('Tạo mới ô tô');
+router.get('/create', async function(req, res){
+    let brands = await Brand.find();
+    res.render('cars/create', {brands});
 });
 
 
