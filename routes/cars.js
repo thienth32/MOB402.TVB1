@@ -13,6 +13,18 @@ router.get('/', async function(req, res){
     res.render('cars/index', 
                     {cars, keyword});
 });
+
+router.get('/remove/:carId', async function(req, res){
+    let carId = req.params.carId;
+  
+    // thực hiện xóa
+    await Car.findOneAndRemove({_id: carId})
+        .catch((err) => {
+            res.send("Không tìm thấy thông tin xe ô tô");
+        })
+    res.redirect('/cars');
+});
+
 router.get('/create', function(req, res){
     res.send('Tạo mới ô tô');
 });
