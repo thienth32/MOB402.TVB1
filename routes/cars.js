@@ -37,6 +37,20 @@ router.get('/create', async function(req, res){
     res.render('cars/create', {brands});
 });
 
+router.post('/save-create', async function(req, res){
+    // nhận dữ liệu từ form gửi lên
+    let {name, image, brand_id, price} = req.body;
+    
+    // tạo mới Car dựa vào thông tin từ form
+    let model = await Car.create({name, image, brand_id, price});
+    // tạo thành công => id có giá trị => điều hướng về danh sách ô tô
+    if(model.id != undefined){
+        res.redirect('/cars');
+    }
+
+    res.send("Không tạo thành công !");
+});
+
 
 
 module.exports = router;
