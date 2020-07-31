@@ -50,7 +50,11 @@
                         <label for="">Hãng xe ô tô</label>
                         <select name="brand_id" class="form-control">
                             <%for(let i = 0; i < brands.length; i++){%>
-                                <option value="<%= brands[i].id %>"><%= brands[i].name %></option>
+                                <option 
+                                    <% if(brands[i].id == car.brand_id.id ){%>
+                                        selected
+                                    <%}%>
+                                    value="<%= brands[i].id %>"><%= brands[i].name %></option>
                             <%}%>
                         </select>
                     </div>

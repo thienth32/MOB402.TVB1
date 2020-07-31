@@ -56,10 +56,25 @@ router.get('/update/:carId', async function(req, res){
     // lấy ra tất cả các hãng xe để người dùng chọn hãng cho xe ô tô mới (hiển thị ở thẻ select)
     let brands = await Brand.find();
     let car = await Car.findById(req.params.carId)
-                        .populate('brand_id');
+                        .populate('brand_id')
+                        .catch((err) => {
+                            res.send("Không tìm thấy thông tin ô tô");
+                        });
+
     res.render('cars/update', {brands, car});
 });
 
+router.post('/save-update/:carId', async function(req, res){
+    let {name, image, brand_id, price} = req.body;
 
+    let car = await Car.findById(req.params.carId)
+                        .catch((err) => {
+                            res.send("Không tìm thấy thông tin ô tô");
+                        });
+
+    car.overwrite({name, image, brand_id, price});
+    await car.save();
+    res.redirect('/cars');
+});
 
 module.exports = router;
