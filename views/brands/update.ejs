@@ -37,7 +37,7 @@
         </header>
         <main class="container">
             <h4>Cập nhật hãng xe</h4>
-            <form action="/brands/save-update/<%= brand.id %>" method="post">
+            <form action="/brands/save-update/<%= brand.id %>" method="post" enctype="multipart/form-data">
                 <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                         <label for="">Tên hãng</label>
@@ -48,8 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Logo</label>
-                        <input type="text" name="logo" 
-                            value="<%= brand.logo %>"
+                        <input type="file" name="logo" 
                             class="form-control"
                             placeholder="Nhập đường dẫn ảnh">
                     </div>

@@ -3,6 +3,7 @@ var Brand = require('../models/Brand');
 var Car = require('../models/Car');
 const { response } = require('express');
 var router = express.Router();
+var uniqid = require('uniqid');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,8 +30,14 @@ router.get('/brands/create', function(req, res){
 router.post('/brands/create-save', async function(req, res){
   let data = {
     name: req.body.name,
-    logo: req.body.logo
+    logo: null
   };
+  if(req.files){
+    let logo = req.files.logo;
+    const filename = "logo/" + uniqid() + "-" + logo.name;
+    logo.mv(`./uploads/${filename}`);
+    data.logo = filename;
+  }
   let model = await Brand.create(data);
   if(model.id != undefined){
     res.redirect('/brands');
@@ -60,15 +67,22 @@ router.get('/brands/update/:brandId', async function(req, res){
 
 router.post('/brands/save-update/:brandId', async function(req, res){
   let brandId = req.params.brandId;
-  let {name, logo} = req.body;
 
   let brand = await Brand.findById(brandId)
                         .catch((err) => {
                           res.send("Không tìm thấy thông tin hãng ô tô");
                         });
-  brand.overwrite({
-    name, logo
-  });
+  let data = {
+    name: req.body.name,
+    logo: brand.logo
+  };
+  if(req.files){
+    let logo = req.files.logo;
+    const filename = "logo/" + uniqid() + "-" + logo.name;
+    logo.mv(`./uploads/${filename}`);
+    data.logo = filename;
+  }
+  brand.overwrite(data);
   await brand.save();
   res.redirect('/brands');
 })

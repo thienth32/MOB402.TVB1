@@ -37,7 +37,7 @@
         </header>
         <main class="container">
             <h4>Tạo mới hãng xe</h4>
-            <form action="/brands/create-save" method="post">
+            <form action="/brands/create-save" method="post" enctype="multipart/form-data">
                 <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                         <label for="">Tên hãng</label>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Logo</label>
-                        <input type="text" name="logo" 
+                        <input type="file" name="logo" 
                             class="form-control"
                             placeholder="Nhập đường dẫn ảnh">
                     </div>
