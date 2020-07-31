@@ -34,6 +34,7 @@ router.get('/remove/:carId', async function(req, res){
 router.get('/create', async function(req, res){
     // lấy ra tất cả các hãng xe để người dùng chọn hãng cho xe ô tô mới (hiển thị ở thẻ select)
     let brands = await Brand.find();
+    console.log(brands);
     res.render('cars/create', {brands});
 });
 
@@ -49,6 +50,14 @@ router.post('/save-create', async function(req, res){
     }
 
     res.send("Không tạo thành công !");
+});
+
+router.get('/update/:carId', async function(req, res){
+    // lấy ra tất cả các hãng xe để người dùng chọn hãng cho xe ô tô mới (hiển thị ở thẻ select)
+    let brands = await Brand.find();
+    let car = await Car.findById(req.params.carId)
+                        .populate('brand_id');
+    res.render('cars/update', {brands, car});
 });
 
 
