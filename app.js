@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 const _ = require('lodash');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+
 const mongoose = require('mongoose');
 
 
@@ -38,6 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// giúp request truy cập đc cái file trong thư mục uploads
 app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use(fileUpload({

@@ -37,6 +37,10 @@
         </header>
         <main class="container">
             <h4>Tạo mới hãng xe</h4>
+            <!-- để gửi file từ form lên server thì yêu cầu bắt buộc
+                1. method phải là dạng post
+                2. phải có thuộc tính enctype="multipart/form-data"
+            -->
             <form action="/brands/create-save" method="post" enctype="multipart/form-data">
                 <div class="col-md-6 offset-md-3">
                     <div class="form-group">

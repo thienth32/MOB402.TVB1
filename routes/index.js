@@ -5,6 +5,8 @@ const { response } = require('express');
 var router = express.Router();
 var uniqid = require('uniqid');
 
+// npm install  body-parser cors express-fileupload morgan lodash --save
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -33,8 +35,11 @@ router.post('/brands/create-save', async function(req, res){
     logo: null
   };
   if(req.files){
-    let logo = req.files.logo;
+    // let logo = req.files.logo;
+    const {logo} = req.files;
     const filename = "logo/" + uniqid() + "-" + logo.name;
+    // const filename = `logo/${uniqid()}-${logo.name}`;
+    // lưu file sang thư mục đích => uploads/logo/filename
     logo.mv(`./uploads/${filename}`);
     data.logo = filename;
   }
