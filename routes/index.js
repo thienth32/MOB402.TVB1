@@ -4,6 +4,7 @@ var Car = require('../models/Car');
 const { response } = require('express');
 var router = express.Router();
 var uniqid = require('uniqid');
+let fs = require('fs');
 
 // npm install  body-parser cors express-fileupload morgan lodash --save
 
@@ -52,7 +53,9 @@ router.post('/brands/create-save', async function(req, res){
 
 router.get('/brands/remove/:brandId', async function(req, res){
   let brandId = req.params.brandId;
-  
+  // let brand = await Brand.findById(brandId);
+  // fs.unlinkSync(`./uploads/${brand.logo}`);
+  // res.send(brand);
   // thực hiện xóa
   await Brand.findOneAndRemove({_id: brandId})
       .catch((err) => {
