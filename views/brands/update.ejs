@@ -37,7 +37,9 @@
         </header>
         <main class="container">
             <h4>Cập nhật hãng xe</h4>
-            <form action="/brands/save-update/<%= brand.id %>" method="post" enctype="multipart/form-data">
+            <form action="/brands/save-update/<%= brand.id %>" 
+                onsubmit="return validateForm()"
+                method="post" enctype="multipart/form-data">
                 <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                         <label for="">Tên hãng</label>
@@ -45,12 +47,14 @@
                             value="<%= brand.name %>"
                             class="form-control"
                             placeholder="Nhập tên hãng">
+                        <span id="name-err" class="validate-err text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Logo</label>
                         <input type="file" name="logo" 
                             class="form-control"
                             placeholder="Nhập đường dẫn ảnh">
+                        <span id="logo-err" class="validate-err text-danger"></span>
                     </div>
                     <div class="text-center">
                         <button class="btn btn-primary btn-sm" 
@@ -63,5 +67,37 @@
             </form>
         </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function validateForm(){
+            // validate data
+            let isValid = true;
+            $('.validate-err ').text("");
+            // kiểm tra từng thành phần, nếu thiếu thành phần nào thì isValid => false
+            let name = $('[name="name"]').val();
+            if(name.length < 4){
+                $('#name-err').after("Hãy nhập tên hãng");
+                isValid = false;
+            }
+
+            if($('[name="logo"]').get(0).files.length !== 0 && checkfileImageType(`[name="logo"]`) == false){
+                $('#logo-err').text("Hãy kiểm tra đúng định dạng ảnh (gif|jpg|png)");
+                isValid = false;
+            }
+            return isValid;
+        }
+
+        function checkfileImageType(selector){
+            var val = $(selector).val();
+            switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+                case 'gif': case 'jpg': case 'png':
+                    return true;
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }
+    </script>
 </body>
 </html>

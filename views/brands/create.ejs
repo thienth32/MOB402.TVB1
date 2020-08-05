@@ -80,7 +80,7 @@
             // kiểm tra từng thành phần, nếu thiếu thành phần nào thì isValid => false
             let name = $('[name="name"]').val();
             if(name.length < 4){
-                $('#name-err').text("Hãy nhập tên hãng");
+                $('#name-err').after("Hãy nhập tên hãng");
                 isValid = false;
             }
 
@@ -91,7 +91,6 @@
                 $('#logo-err').text("Hãy kiểm tra đúng định dạng ảnh (gif|jpg|png)");
                 isValid = false;
             }
-
             return isValid;
         }
 
