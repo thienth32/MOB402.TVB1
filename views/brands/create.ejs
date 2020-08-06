@@ -54,7 +54,7 @@
             // kiểm tra từng thành phần, nếu thiếu thành phần nào thì isValid => false
             let name = $('[name="name"]').val();
             if(name.length < 4){
-                $('#name-err').after("Hãy nhập tên hãng");
+                $('#name-err').text("Hãy nhập tên hãng");
                 isValid = false;
             }
 
@@ -67,18 +67,7 @@
             }
             return isValid;
         }
-
-        function checkfileImageType(selector){
-            var val = $(selector).val();
-            switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
-                case 'gif': case 'jpg': case 'png':
-                    return true;
-                    break;
-                default:
-                    return false;
-                    break;
-            }
-        }
+        
     </script>
 </body>
 </html>
